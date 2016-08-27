@@ -1,6 +1,7 @@
 package tacoMiner.main;
 
-import tacoMiner.debug.*;
+import tacoMiner.debug.Log;
+import tacoMiner.util.HTTP;
 
 public class tacoInit {
 	
@@ -8,6 +9,7 @@ public class tacoInit {
 
 	public static void main(String[] args) {
 		logger.print("Starting tacoMiner");
-	}
+        System.out.println(HTTP.getAsync(HTTP.formatURL("http://www.example.com/")));
+    }
 
 }

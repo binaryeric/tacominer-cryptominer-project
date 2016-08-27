@@ -1,6 +1,8 @@
 package tacoMiner.mine.cuda;
 
-public class Cuda {
+import tacoMiner.mine.GPU;
+
+public class Cuda implements GPU {
 
 	// Singleton
 	private Cuda () {

@@ -1,6 +1,8 @@
 package tacoMiner.mine.openCL;
 
-public class OpenCL {
+import tacoMiner.mine.GPU;
+
+public class OpenCL implements GPU {
 
 	// Singleton
 	private OpenCL() {

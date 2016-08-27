@@ -1,4 +1,4 @@
-package debug;
+package tacoMiner.debug;
 import java.util.*;
 import java.text.*;
 

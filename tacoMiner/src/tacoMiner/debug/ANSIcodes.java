@@ -1,4 +1,4 @@
-package debug;
+package tacoMiner.debug;
 
 public class ANSIcodes {
 	// only works in terminal/cmd do note.

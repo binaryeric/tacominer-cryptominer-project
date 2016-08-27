@@ -1,6 +1,6 @@
 package tacoMiner.main;
 
-import tacoMiner.debug.Log;
+import tacoMiner.debug.*;
 
 public class tacoInit {
 	

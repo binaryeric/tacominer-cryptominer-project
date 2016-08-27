@@ -1,4 +1,4 @@
-package tacoMiner.mine;
+package tacoMiner.process;
 
 public interface GPU {
 

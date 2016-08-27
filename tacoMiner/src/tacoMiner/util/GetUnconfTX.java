@@ -8,6 +8,15 @@ import java.net.URL;
 /**
  * Gets a bunch of unconfirmed transactions that the user specifies and returns array of hashes.
  * Returns back a array of strings in format [hash, size]
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * TO BE DEPRECATED AND REPLACE WITH BITCOIN CORE RPC NETWORK
+ *
  */
 public class GetUnconfTX {
     private static final String API_URL = "https://blockchain.info/unconfirmed-transactions?format=json";

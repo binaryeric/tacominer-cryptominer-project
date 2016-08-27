@@ -3,6 +3,7 @@ package tacoMiner.main;
 import tacoMiner.debug.Log;
 import tacoMiner.util.GetUnconfTX;
 import tacoMiner.util.HTTP;
+import tacoMiner.util.SHA256;
 
 public class tacoInit {
 	
@@ -20,6 +21,8 @@ public class tacoInit {
             System.out.println(a[0] + " : Size : " + a[1]);
         }
         //Examples
+        SHA256.InitMD();
+        System.out.println(SHA256.Hash256("Hello, World"));
     }
 
 }

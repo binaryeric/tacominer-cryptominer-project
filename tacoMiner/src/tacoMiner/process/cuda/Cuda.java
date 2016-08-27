@@ -1,5 +1,6 @@
 package tacoMiner.process.cuda;
 
+import tacoMiner.process.Device;
 import tacoMiner.process.GPU;
 
 public class Cuda implements GPU {
@@ -13,6 +14,12 @@ public class Cuda implements GPU {
 	
 	public static Cuda getInstance() {
 		return instance;
+	}
+
+	@Override
+	public Device getDevice() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

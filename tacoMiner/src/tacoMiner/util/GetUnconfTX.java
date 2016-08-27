@@ -1,6 +1,7 @@
 package tacoMiner.util;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -28,7 +29,7 @@ public class GetUnconfTX {
         initAPIURL();
     }
 
-    public String[][] getTXArray() {
+    public String[][] getTXArray() throws JSONException {
         String[][] txArray = new String[numOfTX][2];
         JSONObject obj = new JSONObject(getDataTX());
 

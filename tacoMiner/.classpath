@@ -4,5 +4,10 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="C:/Java/java-json.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files (x86)/JCuda-All-0.7.5b-bin-windows-x86_64/jcuda-0.7.5b.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/JCuda-All-0.7.5b-bin-windows-x86_64/jcublas-0.7.5b.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/JCuda-All-0.7.5b-bin-windows-x86_64/jcufft-0.7.5b.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/JCuda-All-0.7.5b-bin-windows-x86_64/jcurand-0.7.5b.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/JCuda-All-0.7.5b-bin-windows-x86_64/jcusolver-0.7.5b.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/JCuda-All-0.7.5b-bin-windows-x86_64/jcusparse-0.7.5b.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

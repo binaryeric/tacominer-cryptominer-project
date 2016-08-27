@@ -9,9 +9,9 @@ public class OpenCL implements GPU {
 		// TODO: Init modules
 	} 
 	
-	private OpenCL instance = new OpenCL();
+	private static OpenCL instance = new OpenCL();
 	
-	public OpenCL getInstance() {
+	public static OpenCL getInstance() {
 		return instance;
 	}
 	

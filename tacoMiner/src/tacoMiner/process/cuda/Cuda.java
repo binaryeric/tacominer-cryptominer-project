@@ -9,9 +9,9 @@ public class Cuda implements GPU {
 		//TODO: Init modules
 	} 
 	
-	private Cuda instance = new Cuda();
+	private static Cuda instance = new Cuda();
 	
-	public Cuda getInstance() {
+	public static Cuda getInstance() {
 		return instance;
 	}
 	

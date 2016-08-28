@@ -2,24 +2,12 @@ package tacoMiner.util;
 
 /*
 
-
-
-
-
-
-EVERYTHING HERE IS DEPRECREATED, TOMMOROW I NEED TO DO THIS:
-
-CONVERT DIFFICULTY TO NBITS
-
-NBITS CAN THEN BE TURNED INTO TARGET
-
-TODO: DO ABOVE
-
  */
 public class DifficultyExchange {
     public static String DifficultyToTarget(double difficulty) {
         return NBitsToTarget(DifficultyToNBits(difficulty));
     }
+
     public static int DifficultyToNBits(double difficulty) {
         int shift = 29;
 

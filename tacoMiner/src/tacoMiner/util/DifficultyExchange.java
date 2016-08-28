@@ -17,7 +17,9 @@ TODO: DO ABOVE
 
  */
 public class DifficultyExchange {
-
+    public static String DifficultyToTarget(double difficulty) {
+        return NBitsToTarget(DifficultyToNBits(difficulty));
+    }
     public static int DifficultyToNBits(double difficulty) {
         int shift = 29;
 
@@ -33,6 +35,19 @@ public class DifficultyExchange {
         }
         return (int) ftarg + (shift << 24);
         //return nBits;
+    }
+
+    public static String NBitsToTarget(int nBits) {
+        String hex = Integer.toHexString(nBits);
+        int numbytes = Integer.decode("0x" + hex.substring(0, 2));
+        String prefix = hex.substring(3, hex.length());
+        int toPad = numbytes - prefix.length();
+        StringBuilder str = new StringBuilder();
+        str.append(prefix);
+        for (int i = 0; i < toPad; i++) {
+            str.append("0");
+        }
+        return str.toString();
     }
 
 }

@@ -2,6 +2,7 @@
   <library name="json-20160810">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/tacoMiner/lib/json-20160810.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/JCuda-All-0.7.5b-bin-windows-x86_64/jcuda-0.7.5b.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

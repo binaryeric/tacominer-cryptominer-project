@@ -1,11 +1,7 @@
 package tacoMiner.main;
 
 import org.json.JSONException;
-
 import tacoMiner.debug.Log;
-import tacoMiner.util.GetUnconfTX;
-import tacoMiner.util.HTTP;
-import tacoMiner.util.SHA256;
 
 public class tacoInit {
 	
@@ -14,6 +10,7 @@ public class tacoInit {
 	public static void main(String[] args) throws JSONException {
 		logger.print("Starting tacoMiner");
 
+        /*
         //Examples
         System.out.println(HTTP.getAsync(HTTP.formatURL("http://www.example.com/")));
 
@@ -25,6 +22,9 @@ public class tacoInit {
         //Examples
         SHA256.InitMD();
         System.out.println(SHA256.Hash256("Hello, World"));
+        */
+
+
     }
 
 }

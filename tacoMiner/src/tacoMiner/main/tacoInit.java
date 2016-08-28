@@ -2,6 +2,7 @@ package tacoMiner.main;
 
 import org.json.JSONException;
 import tacoMiner.debug.Log;
+import tacoMiner.util.DifficultyToTarget;
 
 public class tacoInit {
 	
@@ -23,6 +24,8 @@ public class tacoInit {
         SHA256.InitMD();
         System.out.println(SHA256.Hash256("Hello, World"));
         */
+
+        System.out.println(DifficultyToTarget.DifficultyToNBits(217375482757.23764));
 
 
     }

@@ -10,12 +10,13 @@ public class HTTP {
     public static URL formatURL(String urlToEncode) {
         try {
             return new URL(urlToEncode);
-        }catch(Exception E){
+        } catch (Exception E) {
             System.out.println("URL Encoding Exception: ");
             E.printStackTrace();
             return null;
         }
     }
+
 
     public static String getAsync(URL obj) {
         try {
@@ -24,6 +25,7 @@ public class HTTP {
 
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
+
 
             String inputLine;
             StringBuilder response = new StringBuilder();

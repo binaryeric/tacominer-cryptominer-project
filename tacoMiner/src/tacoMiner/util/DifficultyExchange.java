@@ -1,11 +1,20 @@
 package tacoMiner.util;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.RoundingMode;
+
 /*
 
  */
 public class DifficultyExchange {
     public static String DifficultyToTarget(double difficulty) {
         return NBitsToTarget(DifficultyToNBits(difficulty));
+    }
+
+    public static BigInteger DifficultyToTargetViaDivison(double difficulty) {
+        //max target / difficulty
+        return new BigDecimal("110427941548649020598956093796432407239217743554726184882600387580788735").divide(BigDecimal.valueOf(difficulty), RoundingMode.HALF_UP).toBigInteger();
     }
 
     public static int DifficultyToNBits(double difficulty) {

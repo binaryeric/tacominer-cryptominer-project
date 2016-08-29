@@ -1,8 +1,10 @@
 package tacoMiner.main;
 
 import org.json.JSONException;
+import tacoMiner.bcoin.BcoinCLI;
 import tacoMiner.bcoin.Block;
 import tacoMiner.debug.Log;
+import tacoMiner.util.DifficultyExchange;
 import tacoMiner.util.SHA256;
 
 import java.io.UnsupportedEncodingException;
@@ -24,11 +26,12 @@ public class tacoInit {
             System.out.println(a[0] + " : Size : " + a[1]);
         }
         */
+        System.out.println(BcoinCLI.Run("getdifficulty"));
         //Examples
         SHA256.InitMD();
         //System.out.println(SHA256.Hash256("Hello, World"));
 
-        System.out.println();
+        System.out.println(DifficultyExchange.DifficultyToTargetViaDivison(217375482757.2376));
 
         String vers = "00000001";
         String previous = "00000000000000001E8D6829A8A21ADC5D38D0A473B144B6765798E61F98BD1D";

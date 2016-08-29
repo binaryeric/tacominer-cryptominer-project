@@ -40,7 +40,7 @@ public class Block {
     public String getHash(String _nonce) throws UnsupportedEncodingException {
         nonce = _nonce;
         plain = version + previous_block_header_hash + merkle_root_hash + time + nBits + nonce;
-
+        System.out.println(plain);
         return hasher(hasher(plain));
     }
 }

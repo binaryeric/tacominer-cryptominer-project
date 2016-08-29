@@ -8,6 +8,14 @@ import java.security.MessageDigest;
 public class SHA256 {
     private static MessageDigest md;
 
+    public static String EndianReverse(String s) {
+        StringBuffer str = new StringBuffer();
+        for (int i = 0; i < s.length() - 1; i += 2) {
+            str.insert(0, s.substring(i, i + 2));
+        }
+        return str.toString();
+    }
+
     public static String convertHexToString(String hex) {
 
         StringBuilder sb = new StringBuilder();

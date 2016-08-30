@@ -1,7 +1,6 @@
 package tacoMiner.main;
 
 import org.json.JSONException;
-import tacoMiner.bcoin.BcoinCLI;
 import tacoMiner.bcoin.Block;
 import tacoMiner.debug.Log;
 import tacoMiner.util.DifficultyExchange;
@@ -26,12 +25,17 @@ public class tacoInit {
             System.out.println(a[0] + " : Size : " + a[1]);
         }
         */
-        System.out.println(BcoinCLI.Run("getdifficulty"));
+        //BcoinDaemon.Start(); takes too long to start, so il just do it manually
+
+        //System.out.println(BcoinCLI.Run("getdifficulty"));
+
         //Examples
         SHA256.InitMD();
         //System.out.println(SHA256.Hash256("Hello, World"));
 
-        System.out.println(DifficultyExchange.DifficultyToTargetViaDivison(217375482757.2376));
+        System.out.println(DifficultyExchange.DifficultyToTarget(6695826));
+
+        System.out.println("--------------------");
 
         String vers = "00000001";
         String previous = "00000000000000001E8D6829A8A21ADC5D38D0A473B144B6765798E61F98BD1D";
@@ -50,6 +54,8 @@ public class tacoInit {
         Block b = new Block(vers, previous, merkle, time, nbits);
         System.out.println(SHA256.EndianReverse(b.getHash(nonce))); //9546a142
         //hash needs to be put into little-endian
+
+        //BcoinDaemon.Stop();
 
 
     }

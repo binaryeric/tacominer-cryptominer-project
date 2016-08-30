@@ -1,16 +1,12 @@
 package tacoMiner.process.cuda;
 
 import tacoMiner.process.SubSystem;
-import static jcuda.runtime.JCuda.*;
-import static jcuda.runtime.cudaMemcpyKind.*;
-import jcuda.*;
-import jcuda.runtime.*;
 
-public class ProcessHash implements SubSystem {
+public class HashCheck implements SubSystem {
 
-	@Override
-	public void start() {
-		// TODO Auto-generated method stub
+    @Override
+    public void start() {
+        // TODO Auto-generated method stub
 
-	}
+    }
 }

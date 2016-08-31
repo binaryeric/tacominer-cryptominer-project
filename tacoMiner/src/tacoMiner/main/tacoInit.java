@@ -37,8 +37,8 @@ public class tacoInit {
         SHA256.InitMD();
         //System.out.println(SHA256.Hash256("Hello, World"));
 
-        GetUnconfTX tx = new GetUnconfTX((short) 7);
-        String[] txExample = new String[]{"3a459eab5f0cf8394a21e04d2ed3b2beeaa59795912e20b9c680e9db74dfb18c", "be38f46f0eccba72416aed715851fd07b881ffb7928b7622847314588e06a6b7"};
+        //GetUnconfTX tx = new GetUnconfTX((short) 7);
+        String[] txExample = new String[]{"8c14f0db3df150123e6f3dbbf30f8b955a8249b62ac1d1ff16284aefa3d06d87", "fff2525b8931402dd09222c50775608f75787bd2b87e56995a7bdd30f79702c4", "6359f0868171b1d194cbee1af2f16ea598ae8fad666d9b012c8ed2b79a236ec4", "e9a66845e05d5abc0ad04ec80f774a7e585c6e8db975962d069a522137b80c1d"};
         MerkleRoot merk = new MerkleRoot(txExample);
         merk.calculateRoot();
 

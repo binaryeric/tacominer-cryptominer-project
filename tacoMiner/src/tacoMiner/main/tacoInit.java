@@ -3,7 +3,8 @@ package tacoMiner.main;
 import org.json.JSONException;
 import tacoMiner.bcoin.Block;
 import tacoMiner.debug.Log;
-import tacoMiner.util.DifficultyExchange;
+import tacoMiner.merkle.MerkleRoot;
+import tacoMiner.util.GetUnconfTX;
 import tacoMiner.util.SHA256;
 
 import java.io.UnsupportedEncodingException;
@@ -25,15 +26,25 @@ public class tacoInit {
             System.out.println(a[0] + " : Size : " + a[1]);
         }
         */
-        //BcoinDaemon.Start(); takes too long to start, so il just do it manually
 
-        //System.out.println(BcoinCLI.Run("getdifficulty"));
+        //BcoinCLI.Run("getdifficulty")
+
+        //BcoinDaemon.Start(); takes too long to start, so il just do it manually
+        //double diff = Double.valueOf(BcoinCLI.Run("getdifficulty"));
+        //System.out.println(diff);
 
         //Examples
         SHA256.InitMD();
         //System.out.println(SHA256.Hash256("Hello, World"));
 
-        System.out.println(DifficultyExchange.DifficultyToTarget(6695826));
+        GetUnconfTX tx = new GetUnconfTX((short) 7);
+        String[] txExample = new String[]{"3a459eab5f0cf8394a21e04d2ed3b2beeaa59795912e20b9c680e9db74dfb18c", "be38f46f0eccba72416aed715851fd07b881ffb7928b7622847314588e06a6b7"};
+        MerkleRoot merk = new MerkleRoot(txExample);
+        merk.calculateRoot();
+
+        System.out.println("--------------------");
+
+        //System.out.println(DifficultyExchange.DifficultyToTarget(diff));
 
         System.out.println("--------------------");
 

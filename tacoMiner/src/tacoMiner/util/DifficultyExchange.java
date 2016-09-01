@@ -37,7 +37,6 @@ public class DifficultyExchange {
 
         BigInteger b = new BigInteger("256").pow(a).multiply(new BigInteger(significand));
 
-
         return b.toString();
     }
 

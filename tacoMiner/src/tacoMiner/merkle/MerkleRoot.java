@@ -40,7 +40,7 @@ public class MerkleRoot {
         return a;
     }
 
-    public void calculateRoot() {
+    public String calculateRoot() {
         Merkle[] merkles = genMerkles(originalTrans);
         boolean odd = (merkles.length % 2 == 1);
         int lastOne = -1;
@@ -51,12 +51,6 @@ public class MerkleRoot {
             if (merkles.length == 1) break;
             if (merkles[1] == null) break;
 
-            try {
-                Thread.sleep(1000);
-            } catch (Exception e) {
-            }
-            ;
-
             if (merkles.length % 2 == 1) lastOne = merkles.length - 1;
 
             int counter = 0;
@@ -64,19 +58,19 @@ public class MerkleRoot {
             for (int i = 0; i < merkles.length; i = i + 2) {
                 if (i == lastOne) {
                     newMerkles[counter] = hasher(merkles[i].hash, merkles[i].hash);
-                    System.out.println("Last One Merging: " + merkles[i] + " and " + merkles[i] + " Result:" + newMerkles[counter]);
+                    //System.out.println("Last One Merging: " + merkles[i] + " and " + merkles[i] + " Result:" + newMerkles[counter]);
                     break;
                 }
                 newMerkles[counter] = hasher(merkles[i].hash, merkles[i + 1].hash);
-                System.out.println("Merging: " + merkles[i] + " and " + merkles[i + 1] + " Result:" + newMerkles[counter]);
+                //System.out.println("Merging: " + merkles[i] + " and " + merkles[i + 1] + " Result:" + newMerkles[counter]);
 
                 counter++;
             }
-            System.out.println("------------------------");
+            //System.out.println("------------------------");
             merkles = newMerkles;
 
         }
-        System.out.println(merkles[0]);
+        return merkles[0].toString();
     }
 
 

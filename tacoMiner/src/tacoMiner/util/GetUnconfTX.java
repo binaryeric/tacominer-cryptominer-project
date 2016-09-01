@@ -25,7 +25,7 @@ public class GetUnconfTX {
     private short numOfTX;
 
     public GetUnconfTX(short nt) {
-        numOfTX = nt;
+        numOfTX = (short) (nt);
         initAPIURL();
     }
 

@@ -66,6 +66,7 @@ public class SHA256 {
         try {
             byte[] bytebuff = new byte[plain.length() / 2];
             int z = 0;
+
             for (int i = 0; i < plain.length(); i = i + 2) {
                 bytebuff[z] = Integer.decode("0x" + plain.substring(i, i + 2)).byteValue();
                 z = z + 1;
@@ -74,6 +75,18 @@ public class SHA256 {
             return md.digest();
         } catch (Exception e) {
             System.out.println("Hash Exception: Plaintext ASCII Byte Exception");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static byte[] ByteRawHash256(byte[] plain) {
+        //Does Direct Byte Hash
+        try {
+            md.update(plain);
+            return md.digest();
+        } catch (Exception e) {
+            System.out.println("Hash Exception: Raw Byte Hash");
             e.printStackTrace();
         }
         return null;

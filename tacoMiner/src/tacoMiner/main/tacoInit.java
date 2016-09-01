@@ -52,6 +52,14 @@ public class tacoInit {
     }
 
     public static void startClock(Block b) {
+        long waitT = Long.parseLong(Long.toString(Instant.now().toEpochMilli()).replace(Long.toString(Instant.now().getEpochSecond()), ""));
+        System.out.println("Synch Clock: " + waitT);
+        try {
+            Thread.sleep(waitT);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Sync Clock Exception");
+        }
         System.out.println("Epoch Clock Starting");
         b.start();
         System.out.println(b.toString());

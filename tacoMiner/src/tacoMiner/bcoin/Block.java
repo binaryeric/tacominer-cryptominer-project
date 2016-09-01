@@ -24,6 +24,14 @@ public class Block implements Runnable {
         nBits = _nBits;
     }
 
+    public static void reverse(byte[] array) {
+        for (int i = 0, j = array.length - 1; i < j; i++, j--) {
+            byte b = array[i];
+            array[i] = array[j];
+            array[j] = b;
+        }
+    }
+
     public static String bytesToHex(byte[] bytes) {
         char[] hexChars = new char[bytes.length * 2];
         for (int j = 0; j < bytes.length; j++) {
@@ -65,19 +73,20 @@ public class Block implements Runnable {
     public byte[] getHash(String _nonce) throws UnsupportedEncodingException {
         nonce = _nonce;
         StringBuilder bnonce = new StringBuilder(nonce);
-        for (int i = 0; i < 48 - nonce.length(); i++) {
+        for (int i = 0; i < ((nonce.length() % 2 == 1 ? 1 : 0) + nonce.length() - nonce.length()); i++) {
             bnonce = bnonce.insert(0, "0");
             //pad hex: example:
             //f
             //turns into
             //0f
         }
+        nonce = SHA256.EndianReverse(bnonce.toString());
 
-        plain = savedHeader + time + nBits + bnonce.toString(); //compiler will auto-optimize by using +
-        System.out.println(nonce);
-        System.out.println(plain);
+        plain = savedHeader + time + nBits + nonce; //compiler will auto-optimize by using +
         //returns bytearray for performance, so instead of strng-bytearray it just returns byte-array
-        System.out.println(hasher(hasher(plain)));
-        return hasher2(hasher(plain));
+        System.out.println(plain);
+        byte[] hashed = hasher2(hasher(plain));
+        reverse(hashed);
+        return hashed;
     }
 }

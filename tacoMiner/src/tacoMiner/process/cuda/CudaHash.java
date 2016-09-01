@@ -6,7 +6,7 @@ import jcuda.driver.*;
 import static jcuda.driver.JCudaDriver.*;
 
 
-public class HashCheck implements SubSystem {
+public class CudaHash implements SubSystem {
 
     @Override
     public void start() {

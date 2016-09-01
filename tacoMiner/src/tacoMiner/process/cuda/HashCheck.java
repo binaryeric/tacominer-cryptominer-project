@@ -5,9 +5,6 @@ import jcuda.driver.JCudaDriver;
 import jcuda.driver.*;
 import static jcuda.driver.JCudaDriver.*;
 
-//
-
-
 
 public class HashCheck implements SubSystem {
 
@@ -15,11 +12,6 @@ public class HashCheck implements SubSystem {
 	public void start() {
 		// TODO Auto-generated method stub
 	}
-	
-//	public String compareHash(String input) {
-//	      CUdevice device = new CUdevice();
-//
-//	}
 	
 	public String fromTargetHash(String input, String targetSHA256) {
 		CudaContext context = (CudaContext) Cuda.getInstance().getContext();

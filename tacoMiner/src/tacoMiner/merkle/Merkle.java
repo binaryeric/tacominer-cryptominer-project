@@ -6,4 +6,8 @@ public class Merkle {
     public Merkle(String h) {
         hash = h;
     }
+
+    public String toString() {
+        return hash;
+    }
 }

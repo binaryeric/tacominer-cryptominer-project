@@ -67,6 +67,7 @@ public class SHA256 {
             byte[] bytebuff = new byte[plain.length() / 2];
             int z = 0;
 
+            System.out.println(plain);
             for (int i = 0; i < plain.length(); i = i + 2) {
                 bytebuff[z] = Integer.decode("0x" + plain.substring(i, i + 2)).byteValue();
                 z = z + 1;
@@ -76,6 +77,7 @@ public class SHA256 {
         } catch (Exception e) {
             System.out.println("Hash Exception: Plaintext ASCII Byte Exception");
             e.printStackTrace();
+            Runtime.getRuntime().halt(1);
         }
         return null;
     }

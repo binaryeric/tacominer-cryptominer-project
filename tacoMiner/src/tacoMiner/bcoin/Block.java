@@ -1,12 +1,13 @@
 package tacoMiner.bcoin;
 
+import tacoMiner.main.tacoInit;
 import tacoMiner.util.SHA256;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
 import java.time.Instant;
 
-public class Block implements Runnable {
+public class Block extends Thread {
     final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
     public String version;
     public String previous_block_header_hash; //char[32]
@@ -42,15 +43,13 @@ public class Block implements Runnable {
         return new String(hexChars);
     }
 
-    public void startClock() {
-        Thread t = new Thread();
-        t.start();
-    }
 
     public void run() {
         while (true) {
             try {
                 Thread.sleep(800);
+                System.out.println(tacoInit.hashesCount + " : H/pS");
+                tacoInit.hashesCount = 0;
                 time = Long.toString(Instant.EPOCH.getEpochSecond());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -82,10 +81,10 @@ public class Block implements Runnable {
         }
         nonce = SHA256.EndianReverse(bnonce.toString());
 
-        plain = savedHeader + time + nBits + nonce; //compiler will auto-optimize by using +
+        plain = savedHeader + tacoInit.time() + nBits + nonce; //compiler will auto-optimize by using +
         //returns bytearray for performance, so instead of strng-bytearray it just returns byte-array
-        System.out.println(plain);
-        System.out.println(SHA256.EndianReverse(hasher(hasher(plain))));
+        //System.out.println(plain);
+        //System.out.println(SHA256.EndianReverse(hasher(hasher(plain))));
         return SHA256.EndianReverse(hasher(hasher(plain)));
     }
 }

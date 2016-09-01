@@ -14,27 +14,20 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.time.Instant;
 import java.util.SplittableRandom;
-/*
-WAYPOINT
-WAYPOINT
-WAYPOINT
-WAYPOINT
-WAYPOINT
-WAYPOINT
-WAYPOINT
-WAYPOINT
-WAYPOINT
-WAYPOINT
-WAYPOINT
-WAYPOINT
-
- */
 
 public class tacoInit {
-
     private static final int PROTOCOL_VERSION = 70014;
+    public static String time;
+    public static int hashesCount = 0;
     private static Log logger = Log.getInstance();
 
+    public static synchronized String time() {
+        return time;
+    }
+
+    public static synchronized void setTime(String t) {
+        time = t;
+    }
     public static boolean checkByteArray(byte[] a, byte[] b) {
         for (int i = 0; i < b.length; i++) {
             System.out.println(a[i]);
@@ -57,6 +50,12 @@ public class tacoInit {
         return data;
     }
 
+    public static void startClock(Block b) {
+        System.out.println("Epoch Clock Starting");
+        b.start();
+        System.out.println(b.toString());
+    }
+
     public static void main(String[] args) throws JSONException, UnsupportedEncodingException {
         logger.print("Starting tacoMiner");
 
@@ -76,14 +75,12 @@ public class tacoInit {
         //BcoinCLI.Run("getdifficulty")
 
         //BcoinDaemon.Start(); takes too long to start, so il just do it manually
-        double diff = (double) 14484.16236122;
+        double diff = Double.valueOf(BcoinCLI.Run("getdifficulty"));
         //System.out.println(diff);
 
         SHA256.InitMD();
         GetUnconfTX tx = new GetUnconfTX((short) 8);
-
-        MerkleRoot merk = new MerkleRoot(new String[]{"8c14f0db3df150123e6f3dbbf30f8b955a8249b62ac1d1ff16284aefa3d06d87", "fff2525b8931402dd09222c50775608f75787bd2b87e56995a7bdd30f79702c4", "6359f0868171b1d194cbee1af2f16ea598ae8fad666d9b012c8ed2b79a236ec4", "e9a66845e05d5abc0ad04ec80f774a7e585c6e8db975962d069a522137b80c1d"});
-
+        MerkleRoot merk = new MerkleRoot(MerkleRoot.convArray(tx.getTXArray()));
 
         //String vers = "00000001";
         //String previous = "00000000000000001E8D6829A8A21ADC5D38D0A473B144B6765798E61F98BD1D";
@@ -108,10 +105,10 @@ public class tacoInit {
         System.out.println(targetString);
         byte[] target = hexStringToByteArray(targetString);
 
-        String vers = "00000001";
-        String previous = "000000000002d01c1fccc21636b607dfd930d31d01c3a62104612a1719011250";
+        String vers = Integer.toString(PROTOCOL_VERSION);
+        String previous = HTTP.getAsync(HTTP.formatURL("https://blockchain.info/q/latesthash"));
         String merkle = merk.calculateRoot();
-        String time = "1293623863";
+        time = Long.toString(Instant.now().getEpochSecond());
         String nbits = Integer.toHexString(DifficultyExchange.DifficultyToNBits(diff));
         //String nonce = "0";
 
@@ -128,11 +125,11 @@ public class tacoInit {
         //nonce = SHA256.EndianReverse(nonce);
 
         Block b = new Block(vers, previous, merkle, time, nbits);
-        int nonce = 274141000;
+        int nonce = 0;
         String hash;
 
         logger.log("Starting miner epoch timer");
-        //b.startClock(); //updates time
+        startClock(b);
         logger.log("Initializing header prefix");
         b.saveHeader();
 
@@ -147,15 +144,20 @@ public class tacoInit {
 
         BigInteger targetBig = new BigInteger(target);
 
+
         while (true) {
+
+            hashesCount++;
+
             //nonce = random.nextInt(0, Integer.MAX_VALUE);
             //System.out.println(nonce);
-            nonce = nonce + 1;
+            nonce = random.nextInt(1, Integer.MAX_VALUE - 1);
+            System.out.println("Nonce:" + nonce);
             hash = b.getHash(Integer.toHexString(nonce));
-            System.out.println("NONCE: " + nonce);
-            System.out.println(targetString);
-            System.out.println("~~~~~~~~~~~~~~~");
-            System.out.println(new BigInteger(hash, 16).compareTo(targetBig));
+            //System.out.println("NONCE: " + nonce);
+            //System.out.println(targetString);
+            //System.out.println("~~~~~~~~~~~~~~~");
+            //System.out.println(new BigInteger(hash, 16).compareTo(targetBig));
             if (new BigInteger(hash, 16).compareTo(targetBig) == -1) {
                 System.out.println("WE MINED A BLOCK");
                 System.out.println("WE MINED A BLOCK");

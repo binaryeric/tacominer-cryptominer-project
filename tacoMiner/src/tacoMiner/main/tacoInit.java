@@ -28,6 +28,7 @@ public class tacoInit {
     public static synchronized void setTime(String t) {
         time = t;
     }
+
     public static boolean checkByteArray(byte[] a, byte[] b) {
         for (int i = 0; i < b.length; i++) {
             System.out.println(a[i]);
@@ -151,8 +152,7 @@ public class tacoInit {
 
             //nonce = random.nextInt(0, Integer.MAX_VALUE);
             //System.out.println(nonce);
-            nonce = random.nextInt(1, Integer.MAX_VALUE - 1);
-            System.out.println("Nonce:" + nonce);
+            nonce = random.nextInt(0, Integer.MAX_VALUE);
             hash = b.getHash(Integer.toHexString(nonce));
             //System.out.println("NONCE: " + nonce);
             //System.out.println(targetString);

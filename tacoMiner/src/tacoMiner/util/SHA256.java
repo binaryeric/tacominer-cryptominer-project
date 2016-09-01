@@ -9,7 +9,7 @@ public class SHA256 {
     private static MessageDigest md;
 
     public static String EndianReverse(String s) {
-        StringBuffer str = new StringBuffer();
+        StringBuilder str = new StringBuilder();
         for (int i = 0; i < s.length() - 1; i += 2) {
             str.insert(0, s.substring(i, i + 2));
         }
@@ -67,7 +67,7 @@ public class SHA256 {
             byte[] bytebuff = new byte[plain.length() / 2];
             int z = 0;
 
-            System.out.println(plain);
+            //System.out.println(plain);
             for (int i = 0; i < plain.length(); i = i + 2) {
                 bytebuff[z] = Integer.decode("0x" + plain.substring(i, i + 2)).byteValue();
                 z = z + 1;

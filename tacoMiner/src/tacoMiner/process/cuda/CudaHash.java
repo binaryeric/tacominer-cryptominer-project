@@ -18,6 +18,7 @@ public class CudaHash implements SubSystem {
 		CUdevice gpu = context.getGPU();
 		
 		// todo: create pointers to new hash and create sub-contexts to process in parallels
+		// todo: load ptx file 
 		
 		
 		long nonce = 0;

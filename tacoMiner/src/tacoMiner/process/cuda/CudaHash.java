@@ -12,7 +12,7 @@ public class CudaHash implements SubSystem {
     public void start() {
         // TODO Auto-generated method stub
     }
-	
+	// more todo qq
 	public String fromTargetHash(String input, String targetSHA256) {
 		CudaContext context = (CudaContext) Cuda.getInstance().getContext();
 		CUdevice gpu = context.getGPU();

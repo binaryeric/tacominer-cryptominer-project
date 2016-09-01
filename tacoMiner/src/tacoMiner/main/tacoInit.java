@@ -128,8 +128,8 @@ public class tacoInit {
         //nonce = SHA256.EndianReverse(nonce);
 
         Block b = new Block(vers, previous, merkle, time, nbits);
-        int nonce = 274148111;
-        byte[] hash;
+        int nonce = 274141000;
+        String hash;
 
         logger.log("Starting miner epoch timer");
         //b.startClock(); //updates time
@@ -150,16 +150,22 @@ public class tacoInit {
         while (true) {
             //nonce = random.nextInt(0, Integer.MAX_VALUE);
             //System.out.println(nonce);
+            nonce = nonce + 1;
             hash = b.getHash(Integer.toHexString(nonce));
             System.out.println("NONCE: " + nonce);
             System.out.println(targetString);
             System.out.println("~~~~~~~~~~~~~~~");
-            //System.out.println(new BigInteger(hash).compareTo(targetBig));
-            if (new BigInteger(hash).compareTo(targetBig) < 1) {
+            System.out.println(new BigInteger(hash, 16).compareTo(targetBig));
+            if (new BigInteger(hash, 16).compareTo(targetBig) == -1) {
+                System.out.println("WE MINED A BLOCK");
+                System.out.println("WE MINED A BLOCK");
+                System.out.println("WE MINED A BLOCK");
+                System.out.println("WE MINED A BLOCK");
+                System.out.println("WE MINED A BLOCK");
+                System.out.println("WE MINED A BLOCK");
                 System.out.println("Mined: Nonce: " + nonce);
                 break;
             }
-            break;
         }
         //System.out.println(SHA256.EndianReverse(b.getHash(nonce))); //9546a142
         //hash needs to be put into little-endian

@@ -70,7 +70,7 @@ public class Block implements Runnable {
         savedHeader = version + previous_block_header_hash + merkle_root_hash;
     }
 
-    public byte[] getHash(String _nonce) throws UnsupportedEncodingException {
+    public String getHash(String _nonce) throws UnsupportedEncodingException {
         nonce = _nonce;
         StringBuilder bnonce = new StringBuilder(nonce);
         for (int i = 0; i < ((nonce.length() % 2 == 1 ? 1 : 0) + nonce.length() - nonce.length()); i++) {
@@ -85,8 +85,7 @@ public class Block implements Runnable {
         plain = savedHeader + time + nBits + nonce; //compiler will auto-optimize by using +
         //returns bytearray for performance, so instead of strng-bytearray it just returns byte-array
         System.out.println(plain);
-        byte[] hashed = hasher2(hasher(plain));
-        reverse(hashed);
-        return hashed;
+        System.out.println(SHA256.EndianReverse(hasher(hasher(plain))));
+        return SHA256.EndianReverse(hasher(hasher(plain)));
     }
 }

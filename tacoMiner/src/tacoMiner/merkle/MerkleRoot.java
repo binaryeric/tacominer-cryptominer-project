@@ -1,6 +1,6 @@
 package tacoMiner.merkle;
 
-import tacoMiner.util.SHA256;
+import tacoMiner.util.SHA256old;
 
 import javax.xml.bind.DatatypeConverter;
 
@@ -23,13 +23,13 @@ public class MerkleRoot {
     }
 
     private Merkle hasher(String a, String b) {
-        a = SHA256.EndianReverse(a);
-        b = SHA256.EndianReverse(b);//endian stuff
+        a = SHA256old.EndianReverse(a);
+        b = SHA256old.EndianReverse(b);//endian stuff
 
-        String hash1 = DatatypeConverter.printHexBinary(SHA256.RawHash256(a + b));
-        String hash2 = DatatypeConverter.printHexBinary(SHA256.RawHash256(hash1));
+        String hash1 = DatatypeConverter.printHexBinary(SHA256old.RawHash256(a + b));
+        String hash2 = DatatypeConverter.printHexBinary(SHA256old.RawHash256(hash1));
 
-        return new Merkle(SHA256.EndianReverse(hash2));
+        return new Merkle(SHA256old.EndianReverse(hash2));
     }
 
     private Merkle[] genMerkles(String[] hashes) {

@@ -27,8 +27,8 @@ public class SHA256 {
         return null;
     }
 
-    public static byte[] hasher(byte[] a, byte[] b) {
-        return SHA2561ARGS(SHA2562ARGS(a, b));
+    public static byte[] hasher(byte[] a) {
+        return SHA2561ARGS(SHA2561ARGS(a));
     }
 
     public static void InitMD() {

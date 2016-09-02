@@ -15,6 +15,7 @@ import java.util.SplittableRandom;
 public class tacoInit {
     private static final int PROTOCOL_VERSION = 70014;
     public static String time;
+    public static byte[] timeBytes;
     public static int hashesCount = 0;
     private static Log logger = Log.getInstance();
 
@@ -22,8 +23,18 @@ public class tacoInit {
         return time;
     }
 
+    public static synchronized byte[] timeBytes() {
+        return timeBytes;
+    }
+
+    ;
+
     public static synchronized void setTime(String t) {
         time = t;
+    }
+
+    public static synchronized void setTime(byte[] t) {
+        timeBytes = t;
     }
 
     public static boolean checkByteArray(byte[] a, byte[] b) {

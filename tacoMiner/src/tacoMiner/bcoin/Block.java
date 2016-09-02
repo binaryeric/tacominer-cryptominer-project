@@ -47,14 +47,6 @@ public class Block extends Thread {
         return new String(hexChars);
     }
 
-    public static final byte[] intToByteArray(int value) {
-        return new byte[]{
-                (byte) (value >>> 24),
-                (byte) (value >>> 16),
-                (byte) (value >>> 8),
-                (byte) value};
-    }
-
     public static byte[] hexStringToByteArray(String s) {
         int len = s.length();
         byte[] data = new byte[len / 2];
@@ -109,6 +101,7 @@ public class Block extends Thread {
                 put(nbitsByte).
                 putInt(_nonce);
         //plain = savedHeader + tacoInit.time() + nBits + nonce;
+
 
         /*
         System.out.println("PLAIN --===========--");

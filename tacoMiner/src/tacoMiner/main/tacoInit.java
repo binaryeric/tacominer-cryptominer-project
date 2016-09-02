@@ -192,6 +192,7 @@ public class tacoInit {
             System.out.println("\n===========");
             System.out.println("TARGET: " + targetString);
             */
+
             if (SHA256.ArrayCompare(hash, target)) {
                 System.out.println("WE MINED A BLOCK");
                 System.out.println("WE MINED A BLOCK");

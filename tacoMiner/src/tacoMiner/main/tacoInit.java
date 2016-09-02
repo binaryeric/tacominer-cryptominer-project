@@ -5,10 +5,7 @@ import tacoMiner.bcoin.BcoinCLI;
 import tacoMiner.bcoin.Block;
 import tacoMiner.debug.Log;
 import tacoMiner.merkle.MerkleRoot;
-import tacoMiner.util.DifficultyExchange;
-import tacoMiner.util.GetUnconfTX;
-import tacoMiner.util.HTTP;
-import tacoMiner.util.SHA256;
+import tacoMiner.util.*;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -84,10 +81,12 @@ public class tacoInit {
         //BcoinCLI.Run("getdifficulty")
 
         //BcoinDaemon.Start(); takes too long to start, so il just do it manually
-        double diff = Double.valueOf(BcoinCLI.Run("getdifficulty"));
+        double diff = Double.valueOf(HTTP.getAsync(HTTP.formatURL("https://blockchain.info/q/getdifficulty")));//Double.valueOf(BcoinCLI.Run("getdifficulty"));
         //System.out.println(diff);
 
         SHA256.InitMD();
+        SHA256old.InitMD();
+
         GetUnconfTX tx = new GetUnconfTX((short) 8);
         MerkleRoot merk = new MerkleRoot(MerkleRoot.convArray(tx.getTXArray()));
 
@@ -126,16 +125,16 @@ public class tacoInit {
         logger.log("Calculating Merkle Root . . .");
         System.out.println(merkle);
 
-        vers = SHA256.EndianReverse(vers);
-        previous = SHA256.EndianReverse(previous);
-        merkle = SHA256.EndianReverse(merkle);
-        time = SHA256.EndianReverse(time);
-        nbits = SHA256.EndianReverse(nbits);
+        vers = SHA256old.EndianReverse(vers);
+        previous = SHA256old.EndianReverse(previous);
+        merkle = SHA256old.EndianReverse(merkle);
+        time = SHA256old.EndianReverse(time);
+        nbits = SHA256old.EndianReverse(nbits);
         //nonce = SHA256.EndianReverse(nonce);
 
         Block b = new Block(vers, previous, merkle, time, nbits);
         int nonce = 0;
-        String hash;
+        byte[] hash;
 
         logger.log("Starting miner epoch timer");
         startClock(b);
@@ -150,6 +149,8 @@ public class tacoInit {
         System.out.print(nbits);
         System.out.println("====");
 
+        System.out.println("Converting header values into bytes");
+        b.convertValsToBytes();
 
         BigInteger targetBig = new BigInteger(target);
 
@@ -158,15 +159,10 @@ public class tacoInit {
 
             hashesCount++;
 
-            //nonce = random.nextInt(0, Integer.MAX_VALUE);
-            //System.out.println(nonce);
             nonce = random.nextInt(0, Integer.MAX_VALUE);
-            hash = b.getHash(Integer.toHexString(nonce));
-            //System.out.println("NONCE: " + nonce);
-            //System.out.println(targetString);
-            //System.out.println("~~~~~~~~~~~~~~~");
-            //System.out.println(new BigInteger(hash, 16).compareTo(targetBig));
-            if (new BigInteger(hash, 16).compareTo(targetBig) == -1) {
+            hash = b.getHash(nonce);
+
+            if (SHA256.ArrayCompare(hash, target)) {
                 System.out.println("WE MINED A BLOCK");
                 System.out.println("WE MINED A BLOCK");
                 System.out.println("WE MINED A BLOCK");
@@ -177,10 +173,6 @@ public class tacoInit {
                 break;
             }
         }
-        //System.out.println(SHA256.EndianReverse(b.getHash(nonce))); //9546a142
-        //hash needs to be put into little-endian
-
-        //BcoinDaemon.Stop();
 
 
     }

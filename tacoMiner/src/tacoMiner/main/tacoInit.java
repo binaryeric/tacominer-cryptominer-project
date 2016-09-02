@@ -146,7 +146,7 @@ public class tacoInit {
         nbits = SHA256old.EndianReverse(nbits);
 
         BlockMultithread.init(vers, previous, merkle, time, nbits);
-        blocks = BlockMultithread.multiThreadBlocksGenerate(1);
+        blocks = BlockMultithread.multiThreadBlocksGenerate(10);
 
         logger.log("Starting miner epoch timer");
         startClock(blocks[0]); // just need to start 1 of the blocks timer

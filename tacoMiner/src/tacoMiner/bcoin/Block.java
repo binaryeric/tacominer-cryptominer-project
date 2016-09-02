@@ -6,6 +6,7 @@ import tacoMiner.util.SHA256;
 import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.security.MessageDigest;
 import java.time.Instant;
 
 public class Block extends Thread {
@@ -19,6 +20,8 @@ public class Block extends Thread {
     String savedHeader = "";
     byte[] savedHeaderBytes;
     byte[] nbitsByte;
+    MessageDigest md;
+    SHA256 SHA256;
     private String plain; // if performance is bad then you can use char array
     private ByteBuffer plainByteArray;
     public Block(String _ver, String pbhh, String mrh, String _time, String _nBits) {
@@ -27,6 +30,9 @@ public class Block extends Thread {
         merkle_root_hash = mrh;
         time = _time;
         nBits = _nBits;
+        InitMD();
+        SHA256 = new SHA256();
+        SHA256.InitMD(md);
     }
 
     public static void reverse(byte[] array) {
@@ -57,14 +63,20 @@ public class Block extends Thread {
         return data;
     }
 
+    public void InitMD() {
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+        } catch (Exception e) {
+            System.out.println("MessageDigest Init Exception");
+        }
+    }
+
     public void run() {
         time = Long.toString(Instant.EPOCH.getEpochSecond());
         tacoInit.setTime(ByteBuffer.allocate(4).putInt((int) Instant.EPOCH.getEpochSecond()).array());
         while (true) {
             try {
                 Thread.sleep(950);
-                System.out.println(tacoInit.hashesCount + " : H/pS");
-                tacoInit.hashesCount = 0;
                 time = Long.toString(Instant.EPOCH.getEpochSecond());
                 tacoInit.setTime(ByteBuffer.allocate(4).putInt((int) Instant.EPOCH.getEpochSecond()).array());
             } catch (Exception e) {

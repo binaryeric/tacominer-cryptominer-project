@@ -1,8 +1,7 @@
 package tacoMiner.main;
 
 import org.json.JSONException;
-import tacoMiner.bcoin.BcoinCLI;
-import tacoMiner.bcoin.Block;
+import tacoMiner.bcoin.*;
 import tacoMiner.debug.Log;
 import tacoMiner.merkle.MerkleRoot;
 import tacoMiner.util.*;
@@ -18,6 +17,7 @@ public class tacoInit {
     public static String time;
     public static byte[] timeBytes;
     public static int hashesCount = 0;
+    public static Block blocks[];
     private static Log logger = Log.getInstance();
 
     public static synchronized String time() {
@@ -27,8 +27,6 @@ public class tacoInit {
     public static synchronized byte[] timeBytes() {
         return timeBytes;
     }
-
-    ;
 
     public static synchronized void setTime(String t) {
         time = t;
@@ -96,7 +94,6 @@ public class tacoInit {
         double diff = Double.valueOf(HTTP.getAsync(HTTP.formatURL("https://blockchain.info/q/getdifficulty")));//Double.valueOf(BcoinCLI.Run("getdifficulty"));
         //System.out.println(diff);
 
-        SHA256.InitMD();
         SHA256old.InitMD();
 
         GetUnconfTX tx = new GetUnconfTX((short) 8);
@@ -147,18 +144,15 @@ public class tacoInit {
         merkle = SHA256old.EndianReverse(merkle);
         time = SHA256old.EndianReverse(time);
         nbits = SHA256old.EndianReverse(nbits);
-        //nonce = SHA256.EndianReverse(nonce);
 
-        Block b = new Block(vers, previous, merkle, time, nbits);
-        int nonce = 0;
-        byte[] hash;
+        BlockMultithread.init(vers, previous, merkle, time, nbits);
+        blocks = BlockMultithread.multiThreadBlocksGenerate(1);
 
         logger.log("Starting miner epoch timer");
-        startClock(b);
-        //manual time setting for testing
-        //timeBytes = ByteBuffer.allocate(4).putInt(b.abs(b.intEndian(1293623863))).array();
+        startClock(blocks[0]); // just need to start 1 of the blocks timer
+
         logger.log("Initializing header prefix");
-        b.saveHeader();
+        BlockMultithread.saveHeaders(blocks);
 
         System.out.println("====");
         System.out.print(vers);
@@ -169,42 +163,23 @@ public class tacoInit {
         System.out.println("====");
 
         System.out.println("Converting header values into bytes");
-        b.convertValsToBytes();
+        BlockMultithread.initBytes(blocks);
 
+        System.out.println("----------------------------");
+        System.out.println("----------------------------");
+        System.out.println("----------------------------");
+        System.out.println("----------------------------");
 
-        while (true) {
-            try {
-                //Thread.sleep(1000);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        BlockMultithread.startMine(random, blocks, target);
 
-            hashesCount++;
+        System.out.println("----------------------------");
+        System.out.println("----------------------------");
+        System.out.println("----------------------------");
+        System.out.println("----------------------------");
+        System.out.println("Starting Stats Daemon");
 
-            nonce = random.nextInt(0, Integer.MAX_VALUE);
-            //System.out.println(nonce);
-            hash = b.getHash(nonce);
-            /*
-            System.out.println("---- HASH -----");
-            for(Byte a : hash){
-                System.out.print(String.format("%02X ", a));
-            }
-            System.out.println("\n===========");
-            System.out.println("TARGET: " + targetString);
-            */
-
-            if (SHA256.ArrayCompare(hash, target)) {
-                System.out.println("WE MINED A BLOCK");
-                System.out.println("WE MINED A BLOCK");
-                System.out.println("WE MINED A BLOCK");
-                System.out.println("WE MINED A BLOCK");
-                System.out.println("WE MINED A BLOCK");
-                System.out.println("WE MINED A BLOCK");
-                System.out.println("Mined: Nonce: " + nonce);
-                break;
-            }
-        }
-
+        Stats stats = new Stats();
+        stats.run();
 
     }
 

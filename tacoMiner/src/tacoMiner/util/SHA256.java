@@ -2,38 +2,33 @@ package tacoMiner.util;
 
 import java.security.MessageDigest;
 
-/**
- * Static utility class that just does sha256 hashing.
- */
 public class SHA256 {
+
     private static MessageDigest md;
 
-    public static String EndianReverse(String s) {
-        StringBuilder str = new StringBuilder();
-        for (int i = 0; i < s.length() - 1; i += 2) {
-            str.insert(0, s.substring(i, i + 2));
+    public static byte[] SHA2562ARGS(byte[] a, byte[] b) {
+        try {
+            md.update(a);
+            md.update(b);
+            return md.digest();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return str.toString();
+        return null;
     }
 
-    public static String convertHexToString(String hex) {
-
-        StringBuilder sb = new StringBuilder();
-        StringBuilder temp = new StringBuilder();
-
-        //49204c6f7665204a617661 split into two characters 49, 20, 4c...
-        for (int i = 0; i < hex.length() - 1; i += 2) {
-
-            //grab the hex in pairs
-            String output = hex.substring(i, (i + 2));
-            //convert hex to decimal
-            int decimal = Integer.parseInt(output, 16);
-            //convert the decimal to character
-            sb.append((char) decimal);
-
-            temp.append(decimal);
+    public static byte[] SHA2561ARGS(byte[] a) {
+        try {
+            md.update(a);
+            return md.digest();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return sb.toString();
+        return null;
+    }
+
+    public static byte[] hasher(byte[] a, byte[] b) {
+        return SHA2561ARGS(SHA2562ARGS(a, b));
     }
 
     public static void InitMD() {
@@ -44,60 +39,24 @@ public class SHA256 {
         }
     }
 
-    public static String Hash256(String plain) {
-        //Converts String to Byte Array then Hash
-        try {
-            md.update(plain.getBytes("ASCII"));
-            byte[] dg = md.digest();
-            StringBuilder digest = new StringBuilder();
-            for (byte a : dg) {
-                digest.append(String.format("%02x", a));
+    public static boolean ArrayCompare(byte[] a, byte[] target) {
+        int offset = 0;
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] > 0) {
+                offset = i;
+                break;
             }
-            return digest.toString();
-        } catch (Exception e) {
-            System.out.println("Hash Exception: Plaintext ASCII Byte Exception");
-            e.printStackTrace();
         }
-        return null;
-    }
+        if ((a.length - offset) < target.length) return false;
 
-    public static byte[] RawHash256(String plain) {
-        //Does Direct Byte Hash
-        try {
-            byte[] bytebuff = new byte[plain.length() / 2];
-            int z = 0;
-
-            //System.out.println(plain);
-            for (int i = 0; i < plain.length(); i = i + 2) {
-                bytebuff[z] = Integer.decode("0x" + plain.substring(i, i + 2)).byteValue();
-                z = z + 1;
+        int z = 0;
+        for (int i = offset; i < a.length; i++) {
+            if (a[z + offset] > target[z]) {
+                return false;
             }
-            md.update(bytebuff);
-            return md.digest();
-        } catch (Exception e) {
-            System.out.println("Hash Exception: Plaintext ASCII Byte Exception");
-            e.printStackTrace();
-            Runtime.getRuntime().halt(1);
+            z++;
         }
-        return null;
+        return true;
     }
 
-    public static byte[] ByteRawHash256(byte[] plain) {
-        //Does Direct Byte Hash
-        try {
-            md.update(plain);
-            return md.digest();
-        } catch (Exception e) {
-            System.out.println("Hash Exception: Raw Byte Hash");
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static byte[] ByteArrayHash256(byte[] plain) {
-        /*
-        Returns a byte array of the SHA256 Hash.
-         */
-        return md.digest(plain);
-    }
 }

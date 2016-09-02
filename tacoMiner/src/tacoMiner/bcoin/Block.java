@@ -66,15 +66,15 @@ public class Block extends Thread {
     }
 
     public void run() {
-        time = Long.toString(Instant.EPOCH.getEpochSecond());
-        tacoInit.setTime(ByteBuffer.allocate(4).putInt((int) Instant.EPOCH.getEpochSecond()).array());
+        //time = Long.toString(Instant.EPOCH.getEpochSecond());
+        //tacoInit.setTime(ByteBuffer.allocate(4).putInt((int) Instant.EPOCH.getEpochSecond()).array());
         while (true) {
             try {
                 Thread.sleep(800);
                 System.out.println(tacoInit.hashesCount + " : H/pS");
                 tacoInit.hashesCount = 0;
-                time = Long.toString(Instant.EPOCH.getEpochSecond());
-                tacoInit.setTime(ByteBuffer.allocate(4).putInt((int) Instant.EPOCH.getEpochSecond()).array());
+                //time = Long.toString(Instant.EPOCH.getEpochSecond());
+                //tacoInit.setTime(ByteBuffer.allocate(4).putInt((int) Instant.EPOCH.getEpochSecond()).array());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -109,13 +109,15 @@ public class Block extends Thread {
                 put(nbitsByte).
                 putInt(_nonce);
         //plain = savedHeader + tacoInit.time() + nBits + nonce;
+
         /*
-        System.out.println("--===========--");
+        System.out.println("PLAIN --===========--");
         for(Byte b : plainByteArray.array()){
             System.out.print(String.format("%02X", b));
         }
         System.out.println("\n===========");
         */
+
         return SHA256.hasher(plainByteArray.array());//SHA256.EndianReverse(hasher(hasher(plain)));
     }
 }

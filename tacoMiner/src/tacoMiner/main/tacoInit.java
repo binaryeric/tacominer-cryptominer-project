@@ -93,16 +93,16 @@ public class tacoInit {
         //BcoinCLI.Run("getdifficulty")
 
         //BcoinDaemon.Start(); takes too long to start, so il just do it manually
-        double diff = 14484.16236122;//Double.valueOf(HTTP.getAsync(HTTP.formatURL("https://blockchain.info/q/getdifficulty")));//Double.valueOf(BcoinCLI.Run("getdifficulty"));
+        double diff = Double.valueOf(HTTP.getAsync(HTTP.formatURL("https://blockchain.info/q/getdifficulty")));//Double.valueOf(BcoinCLI.Run("getdifficulty"));
         //System.out.println(diff);
 
         SHA256.InitMD();
         SHA256old.InitMD();
 
         GetUnconfTX tx = new GetUnconfTX((short) 8);
-        //MerkleRoot merk = new MerkleRoot(MerkleRoot.convArray(tx.getTXArray()));
+        MerkleRoot merk = new MerkleRoot(MerkleRoot.convArray(tx.getTXArray()));
 
-        MerkleRoot merk = new MerkleRoot(new String[]{"8c14f0db3df150123e6f3dbbf30f8b955a8249b62ac1d1ff16284aefa3d06d87", "fff2525b8931402dd09222c50775608f75787bd2b87e56995a7bdd30f79702c4", "6359f0868171b1d194cbee1af2f16ea598ae8fad666d9b012c8ed2b79a236ec4", "e9a66845e05d5abc0ad04ec80f774a7e585c6e8db975962d069a522137b80c1d"});
+        //MerkleRoot merk = new MerkleRoot(new String[]{"8c14f0db3df150123e6f3dbbf30f8b955a8249b62ac1d1ff16284aefa3d06d87", "fff2525b8931402dd09222c50775608f75787bd2b87e56995a7bdd30f79702c4", "6359f0868171b1d194cbee1af2f16ea598ae8fad666d9b012c8ed2b79a236ec4", "e9a66845e05d5abc0ad04ec80f774a7e585c6e8db975962d069a522137b80c1d"});
 
         SplittableRandom random = new SplittableRandom();
 
@@ -120,20 +120,22 @@ public class tacoInit {
         System.out.println(targetString);
         byte[] target = hexStringToByteArray(targetString);
 
-        /*String vers = Integer.toString(PROTOCOL_VERSION);
+        String vers = Integer.toString(PROTOCOL_VERSION);
         String previous = HTTP.getAsync(HTTP.formatURL("https://blockchain.info/q/latesthash"));
         String merkle = merk.calculateRoot();
         time = Long.toString(Instant.now().getEpochSecond());
         String nbits = Integer.toHexString(DifficultyExchange.DifficultyToNBits(diff));
         //String nonce = "0";
-        */
 
+
+        /*
         String vers = "00000001";
         String previous = "000000000002d01c1fccc21636b607dfd930d31d01c3a62104612a1719011250";
         String merkle = merk.calculateRoot();
         String time = "0x4D1B2237";
         String nbits = Integer.toHexString(DifficultyExchange.DifficultyToNBits(diff));
         //String nonce = "810C1A07";
+        */
 
         time = Integer.toHexString(Integer.decode(time));
 
@@ -148,13 +150,13 @@ public class tacoInit {
         //nonce = SHA256.EndianReverse(nonce);
 
         Block b = new Block(vers, previous, merkle, time, nbits);
-        int nonce = 274148110 - 10000000;
+        int nonce = 0;
         byte[] hash;
 
         logger.log("Starting miner epoch timer");
         startClock(b);
         //manual time setting for testing
-        timeBytes = ByteBuffer.allocate(4).putInt(b.abs(b.intEndian(1293623863))).array();
+        //timeBytes = ByteBuffer.allocate(4).putInt(b.abs(b.intEndian(1293623863))).array();
         logger.log("Initializing header prefix");
         b.saveHeader();
 
@@ -169,8 +171,6 @@ public class tacoInit {
         System.out.println("Converting header values into bytes");
         b.convertValsToBytes();
 
-        BigInteger targetBig = new BigInteger(target);
-
 
         while (true) {
             try {
@@ -181,7 +181,7 @@ public class tacoInit {
 
             hashesCount++;
 
-            nonce = nonce + 1;
+            nonce = random.nextInt(0, Integer.MAX_VALUE);
             //System.out.println(nonce);
             hash = b.getHash(nonce);
             /*

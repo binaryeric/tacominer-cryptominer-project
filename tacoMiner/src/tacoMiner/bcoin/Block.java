@@ -66,15 +66,15 @@ public class Block extends Thread {
     }
 
     public void run() {
-        //time = Long.toString(Instant.EPOCH.getEpochSecond());
-        //tacoInit.setTime(ByteBuffer.allocate(4).putInt((int) Instant.EPOCH.getEpochSecond()).array());
+        time = Long.toString(Instant.EPOCH.getEpochSecond());
+        tacoInit.setTime(ByteBuffer.allocate(4).putInt((int) Instant.EPOCH.getEpochSecond()).array());
         while (true) {
             try {
-                Thread.sleep(800);
+                Thread.sleep(950);
                 System.out.println(tacoInit.hashesCount + " : H/pS");
                 tacoInit.hashesCount = 0;
-                //time = Long.toString(Instant.EPOCH.getEpochSecond());
-                //tacoInit.setTime(ByteBuffer.allocate(4).putInt((int) Instant.EPOCH.getEpochSecond()).array());
+                time = Long.toString(Instant.EPOCH.getEpochSecond());
+                tacoInit.setTime(ByteBuffer.allocate(4).putInt((int) Instant.EPOCH.getEpochSecond()).array());
             } catch (Exception e) {
                 e.printStackTrace();
             }

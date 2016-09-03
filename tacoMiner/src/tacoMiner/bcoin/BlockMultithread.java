@@ -40,6 +40,7 @@ public class BlockMultithread {
 
     public static void startMine(SplittableRandom sr, Block[] b, byte[] target) {
         for (Block a : b) {
+            a.allocateByteBuffer();
             System.out.println("Starting Miner Thread: " + a.hashCode());
             System.out.println("Thread ID: " + (new Work(sr, a, target)).StartThread());
         }

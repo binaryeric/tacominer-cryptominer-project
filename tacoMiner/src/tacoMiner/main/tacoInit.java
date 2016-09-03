@@ -24,7 +24,7 @@ public class tacoInit {
         return time;
     }
 
-    public static synchronized byte[] timeBytes() {
+    public static byte[] timeBytes() {
         return timeBytes;
     }
 

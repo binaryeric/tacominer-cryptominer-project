@@ -26,16 +26,6 @@ public class Cuda implements Processor {
 		return instance;
 	}
 
-	public SubSystem getContext() {
-		return cudaContext;
-	}
-
-	@Override
-	public Device getDevice() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public void start() {
 		// TODO Auto-generated method stub
@@ -55,9 +45,41 @@ public class Cuda implements Processor {
 	}
 
 	@Override
+	public Device getDevice() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void hash() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getHashRate() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
 	public DeviceMonitor getDeviceMonitor() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public SubSystem getMineController() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void resetHashRate() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	
 }

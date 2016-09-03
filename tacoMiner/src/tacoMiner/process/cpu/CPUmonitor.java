@@ -12,9 +12,6 @@ public class CPUmonitor implements DeviceMonitor {
 	private Processor cpu;
 	private Log logger;
 	private OperatingSystemMXBean sysMonitor;
-	
-	//
-	private int hashRate = 0;
 
 	@Override
 	public void start() {
@@ -33,24 +30,13 @@ public class CPUmonitor implements DeviceMonitor {
 		return cpuUsage;
 	}
 	
-	// Hash rate:
-	
-	public void setHashRate(int rate) {
-		hashRate = rate;
-	}
-	
-	public int getHashRate() {
-		return hashRate;
-	}
-	
 	// logger output:
 	public void logOutput() {
 		new Thread(new Runnable() {
 			public void run() {
 				while(cpu.isAlive()) {
 					// Print to output:
-					logger.printHighlight("CPU Usage: " + Double.toString(getUsage()) + "%");
-					logger.printHighlight("Hash rate: " + Integer.toString(getHashRate()) + "/t per second");
+					logger.printHighlight("Hash rate: " + Integer.toString(cpu.getHashRate()));
 	
 					// Wait a second
 					try {

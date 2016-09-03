@@ -7,8 +7,13 @@ public interface Processor {
 	public boolean isAlive();
 	public Device getDevice();
 	
+	public void hash();
+	public int getHashRate();
+	public void resetHashRate();
+	
 	// manditory subsystems
 	public DeviceMonitor getDeviceMonitor();
+	public SubSystem getMineController();
 	
 
 }

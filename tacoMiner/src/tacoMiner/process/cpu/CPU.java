@@ -1,13 +1,11 @@
 package tacoMiner.process.cpu;
 
-import tacoMiner.process.Device;
-import tacoMiner.process.DeviceMonitor;
-import tacoMiner.process.Processor;
-import tacoMiner.process.SubSystem;
+import tacoMiner.process.*;
 
 public class CPU implements Processor {
 	
-	private boolean active = false;
+	private int hashes;
+	private boolean active;
 	
 	//
 	private void CPU() {
@@ -22,16 +20,40 @@ public class CPU implements Processor {
 	// Subsystems:
 	
 	private DeviceMonitor cpumonitor;
+	private SubSystem mineController;
 	
 	public void start() {
 		active = true;
+		hashes = 0;
+		
 		// Init subsystems:
 		
 		// CPU monitor:
 			cpumonitor = new CPUmonitor();
 			cpumonitor.start();
 			
-		// 
+			
+		// Mine Controller:
+			mineController = new MinerController();
+			mineController.start();
+			
+		// After everything is started, begin the output logger:
+			cpumonitor.logOutput();
+	}
+	
+	@Override
+	public void hash() {
+		hashes++;
+	}
+
+	@Override
+	public int getHashRate() {
+		return hashes;
+	}
+	
+	@Override
+	public void resetHashRate() {
+		hashes = 0;
 	}
 
 	public void stop() {
@@ -54,5 +76,7 @@ public class CPU implements Processor {
 		return cpumonitor;
 	}
 	
-
+	public SubSystem getMineController() {
+		return mineController;
+	}
 }

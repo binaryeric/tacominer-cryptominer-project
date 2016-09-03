@@ -114,7 +114,7 @@ public class Block extends Thread {
         _nonce = abs(intEndian(_nonce));
         // System.out.println("New " + _nonce);
         //
-        plainByteArray.clear();
+        plainByteArray.position(0);
         plainByteArray = plainByteArray.put(savedHeaderBytes).
                 put(tacoInit.timeBytes()).
                 put(nbitsByte).

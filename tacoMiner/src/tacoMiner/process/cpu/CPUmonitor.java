@@ -37,7 +37,7 @@ public class CPUmonitor implements DeviceMonitor {
                 while (cpu.isAlive()) {
                     // Print to output:
                     logger.printHighlight("Hash rate: " + Integer.toString(cpu.getHashRate()));
-
+                    cpu.resetHashRate();
                     // Wait a second
                     try {
                         Thread.sleep(1000);

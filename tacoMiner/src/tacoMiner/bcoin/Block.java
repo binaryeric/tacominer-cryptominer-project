@@ -105,7 +105,7 @@ public class Block extends Thread {
 
     public void allocateByteBuffer() {
         int neededMem = savedHeaderBytes.length + nbitsByte.length + 8; //8 = time + nonce
-        plainByteArray = plainByteArray.allocate(neededMem);
+        plainByteArray = plainByteArray.allocateDirect(neededMem);
     }
 
     public byte[] getHash(int _nonce) {
@@ -130,6 +130,6 @@ public class Block extends Thread {
         System.out.println("\n===========");
         */
 
-        return SHA256.hasher(plainByteArray.array());//SHA256.EndianReverse(hasher(hasher(plain)));
+        return SHA256.hasher(plainByteArray);//SHA256.EndianReverse(hasher(hasher(plain)));
     }
 }

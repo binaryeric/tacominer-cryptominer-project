@@ -1,5 +1,6 @@
 package tacoMiner.util;
 
+import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 
 public class SHA256 {
@@ -22,10 +23,9 @@ public class SHA256 {
         }
     }
 
-    public byte[] SHA2562ARGS(byte[] a, byte[] b) {
+    public byte[] SHA256ARRAY(ByteBuffer a) {
         try {
             md.update(a);
-            md.update(b);
             return md.digest();
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,10 +33,12 @@ public class SHA256 {
         return null;
     }
 
-    public byte[] SHA2561ARGS(byte[] a) {
+    public ByteBuffer SHA2561ARGS(ByteBuffer a) {
         try {
             md.update(a);
-            return md.digest();
+            a.position(0);
+            a.put(md.digest());
+            return a;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -48,10 +50,12 @@ public class SHA256 {
         md = _md;
     }
 
-    public byte[] hasher(byte[] a) {
-        a = SHA2561ARGS(SHA2561ARGS(a));
-        reverseArray(a);
-        return a;
+
+    public byte[] hasher(ByteBuffer a) {
+        byte[] res;
+        res = SHA256ARRAY(SHA2561ARGS(a));
+        reverseArray(res);
+        return res;
     }
 
     public boolean ArrayCompare(byte[] a, byte[] target) {

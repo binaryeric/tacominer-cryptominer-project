@@ -14,6 +14,7 @@ import java.util.SplittableRandom;
 
 public class tacoInit {
     private static final int PROTOCOL_VERSION = 70014;
+    private static final int NUMBER_OF_THREADS = 10;
     public static String time;
     public static byte[] timeBytes;
     public static int hashesCount = 0;
@@ -146,7 +147,7 @@ public class tacoInit {
         nbits = SHA256old.EndianReverse(nbits);
 
         BlockMultithread.init(vers, previous, merkle, time, nbits);
-        blocks = BlockMultithread.multiThreadBlocksGenerate(10);
+        blocks = BlockMultithread.multiThreadBlocksGenerate(NUMBER_OF_THREADS);
 
         logger.log("Starting miner epoch timer");
         startClock(blocks[0]); // just need to start 1 of the blocks timer

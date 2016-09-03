@@ -1,12 +1,13 @@
 package tacoMiner.process.cuda;
 
-import tacoMiner.process.GPU;
+import tacoMiner.process.Processor;
 import tacoMiner.process.Device;
+import tacoMiner.process.DeviceMonitor;
 import tacoMiner.process.SubSystem;
 
 
 
-public class Cuda implements GPU {
+public class Cuda implements Processor {
 
 	private SubSystem cudaContext;
 	
@@ -31,6 +32,30 @@ public class Cuda implements GPU {
 
 	@Override
 	public Device getDevice() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void stop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isAlive() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public DeviceMonitor getDeviceMonitor() {
 		// TODO Auto-generated method stub
 		return null;
 	}

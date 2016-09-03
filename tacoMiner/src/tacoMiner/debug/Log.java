@@ -38,4 +38,7 @@ public class Log {
 		System.out.println(ANSIcodes.green + m + ANSIcodes.reset);
 	}
 	
+	public void printHighlight(String m) {
+		System.out.println(ANSIcodes.cyan + m + ANSIcodes.reset);
+	}
 }

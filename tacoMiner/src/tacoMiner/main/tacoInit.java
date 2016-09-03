@@ -13,7 +13,6 @@ import java.time.Instant;
 import java.util.SplittableRandom;
 
 public class tacoInit {
-	
     private static final int PROTOCOL_VERSION = 70014;
     public static String time;
     public static byte[] timeBytes;

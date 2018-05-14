@@ -1,5 +1,6 @@
 package tacoMiner.process.cuda;
 
+/*
 
 import tacoMiner.process.SubSystem;
 
@@ -9,6 +10,8 @@ import static jcuda.driver.JCudaDriver.*;
 
 
 //
+
+
 
 public class CudaContext implements SubSystem {
 	
@@ -34,6 +37,7 @@ public class CudaContext implements SubSystem {
 		for(int i=0;i < devices.length; i++) {
 			cuMemFree(devices[i]);
 		}
-	}
+	} 
 
 }
+*/

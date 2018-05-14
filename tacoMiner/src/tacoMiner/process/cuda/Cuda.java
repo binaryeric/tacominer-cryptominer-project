@@ -14,8 +14,8 @@ public class Cuda implements Processor {
 	// Singleton
 	private Cuda () {
 		//TODO: Init modules
-		cudaContext =  new CudaContext();
-		cudaContext.start();
+	//	cudaContext =  new CudaContext();
+	//	cudaContext.start();
 		
 		//
 	} 
